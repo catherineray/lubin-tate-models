@@ -17,3 +17,20 @@ memo = {}
 for n in tqdm(range(P)):
   s[n+1] = f(s[n]).truncate(n+1)
 print s[P]
+
+#----------------------------------------------------
+
+#for the multivariable case (takes much longer!) 
+S = GF(5)['u2, u3']
+L.<x> = PolynomialRing(S)
+f = x^5 + u2*x^3 + u3*x^2 - (u2 + u3)*x
+I = L.ideal([u2,u3])
+s = {}
+s[0] = 2
+P = 50 #precision
+
+memo = {}
+
+for n in tqdm(range(P)):
+  s[n+1] = f(s[n]).mod(I^n+1)
+print s[P]
